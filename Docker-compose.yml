@@ -1,0 +1,41 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Virat@2#Virat@2#
+      POSTGRES_DB: CSV_db
+    ports:
+      - "8899:8899"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: iman.das@hcl-software.com
+      PGADMIN_DEFAULT_PASSWORD: Virat@2#Virat@2#
+    ports:
+      - "5050:80"
+
+  app:
+    build:
+      context: .
+    container_name: golang-app
+    depends_on:
+      - postgres
+    command: ["go", "run", "/app/main.go"]
+    volumes:
+      -  C:\Users\iman.das\Desktop\GoLang\Docker_Go:/app
+    environment:
+      DB_HOST: localhost
+      DB_PORT: 8899
+      DB_USER: postgres
+      DB_PASSWORD: Virat@2#Virat@2#
+      DB_NAME: CSV_db
+
+volumes:
+  postgres-data:
